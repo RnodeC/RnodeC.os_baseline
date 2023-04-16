@@ -18,7 +18,7 @@
     create_home: true 
     local: true
   become: true 
-  loop: "{{ nodestrap_admin_users }}"
+  loop: "{{ os_baseline_admin_users }}"
 
 - name: SSH Config 
-  include_tasks: ssh_config.yaml
+  include_tasks: common/ssh_config.yaml

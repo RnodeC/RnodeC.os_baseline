@@ -1,5 +1,5 @@
 galaxy_info:
-  role_name: nodestrap
+  role_name: os_baseline
   namespace: rnodec
   author: RnodeC
   description: basic linux config 

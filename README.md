@@ -1,10 +1,11 @@
-rnodec.nodestrap
+rnodec.os_baseline
 =========
 
-This ansible role handles the basic configuration of a brand new node used in the rnodec rke2 cluster 
+This ansible role handles the basic configuration of a brand new node used in the rnodec rke2 cluster.  Handles things like:
+
 * system update
-* ssh 
-* local users
+* ssh hardening
+* configuring local users
 
 Requirements
 ------------
@@ -14,8 +15,8 @@ A linux server
 Role Variables
 --------------
 
-* nodestrap_sshd_port: anything other than 22
-* nodestrap_admin_users: list of local user accounts to set up.  These accounts will be authorized to ssh via pubkey authentication and be added to sudoers.
+* os_baseline_sshd_port: anything other than 22
+* os_baseline_admin_users: list of local user accounts to set up.  These accounts will be authorized to ssh via pubkey authentication and be added to sudoers.
 
 Dependencies
 ------------
@@ -30,9 +31,9 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - { role: rnodec.nodestrap }
+         - { role: rnodec.os_baseline }
 
 Author Information
 ------------------
 
-RnodeC
+RnodeC - rnodec.io

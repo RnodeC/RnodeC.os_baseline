@@ -1,4 +1,4 @@
-Port {{ nodestrap_sshd_port }}
+Port {{ os_baseline_sshd_port }}
 
 AddressFamily any
 ListenAddress 0.0.0.0
@@ -97,7 +97,7 @@ AcceptEnv LANG LC_*
 
 
 # Override settings on a per-user basis
-{% for user in nodestrap_admin_users %}
+{% for user in os_baseline_admin_users %}
 Match User {{ user.name }}
 	PubkeyAuthentication yes
 {% endfor %}
