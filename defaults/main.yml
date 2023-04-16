@@ -1,0 +1,7 @@
+---
+nodestrap_sshd_port: 2222
+nodestrap_admin_users:
+- name: admin
+
+keepalived_enabled: false
+keepalived_floating_ip: 10.0.0.10
