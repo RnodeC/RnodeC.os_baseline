@@ -2,23 +2,8 @@
 - name: System Update 
   include_tasks: "{{ ansible_os_family | lower }}/system-update.yaml"
 
-- name: Install extra required packages 
-  ansible.builtin.package: 
-    name: "{{ item }}"
-    state: latest 
-  become: true 
-  with_items: 
-  - jq 
-
 - name: Add local users
-  ansible.builtin.user:
-    name: "{{ item.name }}"
-    shell: /bin/bash
-    append: yes
-    create_home: true 
-    local: true
-  become: true 
-  loop: "{{ os_baseline_admin_users }}"
+  include_tasks: common/local_users.yaml
 
 - name: SSH Config 
   include_tasks: common/ssh_config.yaml

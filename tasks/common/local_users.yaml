@@ -1,0 +1,9 @@
+---
+- name: add user
+  ansible.builtin.user:
+    name: "{{ item.name }}"
+    shell: /bin/bash
+    append: yes
+    create_home: true 
+  become: true 
+  loop: "{{ os_baseline_admin_users }}"
