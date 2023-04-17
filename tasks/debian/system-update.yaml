@@ -10,6 +10,12 @@
       name: "*"
       state: latest
 
+  - name: Install extra required packages 
+    ansible.builtin.package: 
+      name: "{{ item }}"
+      state: latest 
+    loop: "{{ os_baseline_extra_packages }}"
+    
   - name: Upgrade the OS (apt-get dist-upgrade)
     apt:
       upgrade: dist
