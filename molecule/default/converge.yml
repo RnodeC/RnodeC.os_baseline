@@ -2,5 +2,8 @@
 - name: Converge
   hosts: all
 
+  vars:
+    ansible_user: root
+
   roles:
   - RnodeC.os_baseline
