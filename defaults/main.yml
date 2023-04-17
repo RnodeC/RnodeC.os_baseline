@@ -4,4 +4,3 @@ os_baseline_admin_users:
 - name: admin
 os_baseline_extra_packages:
 - jq
-- libc-bin

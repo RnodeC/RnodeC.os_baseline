@@ -15,6 +15,7 @@ A linux server
 Role Variables
 --------------
 
+Nothing required.  See `defaults/main.yaml`
 * os_baseline_sshd_port: anything other than 22
 * os_baseline_admin_users: list of local user accounts to set up.  These accounts will be authorized to ssh via pubkey authentication and be added to sudoers.
 
