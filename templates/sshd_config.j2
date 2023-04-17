@@ -97,8 +97,8 @@ AcceptEnv LANG LC_*
 
 
 # Override settings on a per-user basis
-{% for user in os_baseline_admin_users %}
+{% for user in os_baseline_admin_users + [{'name': ansible_user}] %}
 Match User {{ user.name }}
-	PubkeyAuthentication yes
+    PubkeyAuthentication yes
 {% endfor %}
 

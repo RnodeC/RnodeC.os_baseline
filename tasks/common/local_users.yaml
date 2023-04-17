@@ -1,5 +1,5 @@
 ---
-- name: add user
+- name: Add os_baseline_admin_users
   ansible.builtin.user:
     name: "{{ item.name }}"
     shell: /bin/bash
