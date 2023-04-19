@@ -95,6 +95,7 @@ UseDNS no
 # Allow client to pass locale environment variables
 AcceptEnv LANG LC_*
 
+Subsystem sftp /usr/lib/openssh/sftp-server
 
 # Override settings on a per-user basis
 {% for user in os_baseline_admin_users + [{'name': ansible_user}] %}
