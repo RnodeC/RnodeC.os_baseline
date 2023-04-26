@@ -25,5 +25,30 @@
   become: true 
   notify: restart sshd
 
+- block: 
+  - name: Check if SELinux is installed
+    ansible.builtin.command: getenforce
+    register: getenforce_output
+    failed_when: false
+
+  - name: Check if SELinux is enabled
+    set_fact:
+      selinux_enabled: "{{ 'Enforcing' in getenforce_output.stdout or 'Permissive' in getenforce_output.stdout }}"
+    when: getenforce_output.rc == 0
+
+  - name: Install policycoreutils-python-utils package (required for semanage)
+    ansible.builtin.package:
+      name: policycoreutils-python-utils
+      state: present
+    when: selinux_enabled
+
+  - name: Allow SSH on port {{ os_baseline_sshd_port }} in SELinux
+    ansible.builtin.command: semanage port -a -t ssh_port_t -p tcp {{ os_baseline_sshd_port }}
+    when: selinux_enabled
+    args:
+      creates: /etc/selinux/targeted/modules/active/ports/{{ os_baseline_sshd_port }}.tcp
+  when: ansible_os_family == 'RedHat'
+  become: true
+
   # run restart sshd now
 - meta: flush_handlers 

@@ -2,7 +2,7 @@ Port {{ os_baseline_sshd_port }}
 
 AddressFamily any
 ListenAddress 0.0.0.0
-ListenAddress ::
+#ListenAddress ::
 
 HostKey /etc/ssh/ssh_host_rsa_key
 HostKey /etc/ssh/ssh_host_ecdsa_key
@@ -95,7 +95,11 @@ UseDNS no
 # Allow client to pass locale environment variables
 AcceptEnv LANG LC_*
 
+{% if ansible_os_family == 'Debian' %}
 Subsystem sftp /usr/lib/openssh/sftp-server
+{% elif ansible_os_family == 'RedHat' %}
+Subsystem sftp /usr/libexec/openssh/sftp-server
+{% endif %}
 
 # Override settings on a per-user basis
 {% for user in os_baseline_admin_users + [{'name': ansible_user}] %}

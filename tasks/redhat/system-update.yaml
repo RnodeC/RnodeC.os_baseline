@@ -5,6 +5,12 @@
     name: "*"
     state: latest 
   become: true
+
+- name: Install extra required packages 
+  ansible.builtin.package: 
+    name: "{{ item }}"
+    state: latest 
+  loop: "{{ os_baseline_extra_packages }}"
   
 - name: Determine if reboot is required
   shell: needs-restarting -r 
