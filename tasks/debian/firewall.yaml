@@ -1,0 +1,7 @@
+---
+- name: Disable firewall
+  ansible.builtin.ufw:
+    policy: "allow"
+    state: "disabled"
+  become: true
+  when: os_baseline_firewall_disable | default(false) | bool
