@@ -7,3 +7,4 @@ os_baseline_extra_packages:
 - tmux
 - git
 - tar
+- bash-completion
