@@ -1,19 +1,20 @@
 ---
-- name: yum update 
-  yum: 
-    update_cache: true 
-    name: "*"
-    state: latest 
-  become: true
+- block:
+  - name: yum update 
+    ansible.builtin.yum: 
+      update_cache: true 
+      name: "*"
+      state: latest 
 
-- name: Install extra required packages 
-  ansible.builtin.package: 
-    name: "{{ item }}"
-    state: latest 
-  loop: "{{ os_baseline_extra_packages }}"
+  - name: Install extra required packages 
+    ansible.builtin.package: 
+      name: "{{ item }}"
+      state: latest 
+    loop: "{{ os_baseline_extra_packages }}"
+  become: true
   
 - name: Determine if reboot is required
-  shell: needs-restarting -r 
+  ansible.builtin.shell: needs-restarting -r 
   register: reboot_required 
   ignore_errors: true 
   failed_when: false 

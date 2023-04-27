@@ -6,4 +6,4 @@ os_baseline_extra_packages:
 - jq
 - tmux
 - git
-- htop
+- tar
