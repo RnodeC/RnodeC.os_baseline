@@ -1,0 +1,7 @@
+---
+- name: Install extra required packages 
+  ansible.builtin.package: 
+    name: "{{ item }}"
+    state: latest 
+  loop: "{{ os_baseline_extra_packages }}"
+  become: true

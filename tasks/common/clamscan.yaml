@@ -1,0 +1,54 @@
+---
+- block:
+  - block:
+    - name: Install EPEL repository (RHEL)
+      ansible.builtin.dnf:
+        name: epel-release
+        state: latest
+
+    - name: Install ClamAV and related packages (RHEL)
+      ansible.builtin.dnf:
+        name:
+        - cronie
+        - clamd
+        - clamav
+        - clamav-data
+        - clamav-devel
+        - clamav-lib
+        - clamav-milter
+        - clamav-update
+        state: latest
+    when: ansible_os_family == 'RedHat'
+
+  - name: Install ClamAV and related packages (Debian)
+    ansible.builtin.apt:
+      name:
+      - cron
+      - clamav
+      - clamav-base
+      - clamav-daemon
+      - clamav-docs
+      - clamav-freshclam
+      - clamav-milter
+      - clamav-testfiles
+      - libclamav-dev
+      - libclamav9
+      - libclamunrar9
+      state: latest
+      update_cache: true
+    when: ansible_os_family == 'Debian'
+  
+  - name: Enable clamav-freshclam service
+    ansible.builtin.systemd:
+      name: clamav-freshclam
+      state: started
+      enabled: true
+
+  - name: Configure ClamScan cron job
+    ansible.builtin.cron:
+      name: "ClamScan daily scan"
+      minute: "0"
+      hour: "0"
+      user: root
+      job: "clamscan --recursive / -i -o > /root/clamscan.log 2>&1"
+  become: true

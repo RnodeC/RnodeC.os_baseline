@@ -1,0 +1,18 @@
+---
+- name: System Update 
+  include_tasks: "{{ ansible_os_family | lower }}/system-update.yaml"
+
+- name: Install Extra Packages
+  include_tasks: common/extra-packages.yaml
+
+- name: Add Local Users
+  include_tasks: common/local-users.yaml
+
+- name: Firewalld Config
+  include_tasks: "{{ ansible_os_family | lower }}/firewall.yaml"
+
+- name: SSH Config 
+  include_tasks: common/ssh-config.yaml
+
+- name: Install clamscan and configure cronjob 
+  include_tasks: common/clamscan.yaml

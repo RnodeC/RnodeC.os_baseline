@@ -5,21 +5,21 @@
       update_cache: true
       cache_valid_time: 3600
 
-  - name: Update all packages to their latest version
-    apt:
-      name: "*"
-      state: latest
+  - name: Upgrade installed packages
+    ansible.builtin.apt:
+      upgrade: safe
 
-  - name: Install extra required packages 
-    ansible.builtin.package: 
-      name: "{{ item }}"
-      state: latest 
-    loop: "{{ os_baseline_extra_packages }}"
-    
-  - name: Upgrade the OS (apt-get dist-upgrade)
-    apt:
+  - name: Perform dist-upgrade
+    ansible.builtin.apt:
       upgrade: dist
-  become: true
+
+  - name: Remove unused packages
+    ansible.builtin.apt:
+      autoremove: true
+
+  - name: Clean up package cache
+    ansible.builtin.apt:
+      autoclean: true
 
 - name: Determine if reboot is required
   stat:

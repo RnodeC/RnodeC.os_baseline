@@ -5,13 +5,6 @@
       update_cache: true 
       name: "*"
       state: latest 
-
-  - name: Install extra required packages 
-    ansible.builtin.package: 
-      name: "{{ item }}"
-      state: latest 
-    loop: "{{ os_baseline_extra_packages }}"
-  become: true
   
 - name: Determine if reboot is required
   ansible.builtin.shell: needs-restarting -r 
