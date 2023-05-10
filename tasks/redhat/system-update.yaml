@@ -1,10 +1,10 @@
 ---
-- block:
-  - name: yum update 
-    ansible.builtin.yum: 
-      update_cache: true 
-      name: "*"
-      state: latest 
+- name: yum update 
+  ansible.builtin.yum: 
+    update_cache: true 
+    name: "*"
+    state: latest 
+  become: true
   
 - name: Determine if reboot is required
   ansible.builtin.shell: needs-restarting -r 
