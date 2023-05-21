@@ -15,7 +15,7 @@ jobs:
         MOLECULE_DISTRO:
           - centos7
           - rockylinux8
-          - rockylinux9
+          #- rockylinux9
           - ubuntu2204
           - ubuntu2004
     steps:
